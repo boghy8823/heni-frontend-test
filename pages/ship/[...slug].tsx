@@ -1,10 +1,7 @@
 import { useQuery } from "@apollo/client";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 import { useRouter } from 'next/router'
 import { GET_SHIP_DETAILS } from "../../api/ship/queries/getShipDetails";
-import { CardMedia } from "@mui/material";
+import { ShipInfo } from "../../components/ShipInfo";
 
 const ShipDetails = () => {
   const router = useRouter();
@@ -17,20 +14,7 @@ const ShipDetails = () => {
   if (error) return <p>Error :(</p>;
   
   return (
-    <Container maxWidth="md">
-      <CardMedia component="img" image={ship.image} alt={ship.name} />
-      <Typography variant="h2" component="h2">
-          {ship.name}
-      </Typography>
-      <Typography variant="h5" component="h5">
-          {ship.model}
-      </Typography>
-      <Typography variant="body1">
-          ID: {ship.model}
-      </Typography>
-      <Paper>
-      </Paper>
-    </Container>
+    <ShipInfo image={ship.image} name={ship.name} model={ship.model} description={ship.description} />
   )
 };
 
