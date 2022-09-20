@@ -6,6 +6,7 @@ import { GET_SHIPS } from "../../../api/ship/queries/getShips";
 import { Ship } from "../../../api/ship/types";
 import { Card } from "../../../components/Card";
 import { Grid } from "@mui/material";
+import { Loader } from "../../../components/Loader";
 
 export const getStaticProps = () => {
   return {
@@ -38,7 +39,7 @@ export const HomePage = () => {
       .flat();
   }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader open={loading} />;
   if (error) return <p>Error :(</p>;
 
   return (
