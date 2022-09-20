@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useRouter } from 'next/router'
+import { Card } from "../../components/Card";
 import { GET_SHIP_DETAILS } from "../../api/ship/queries/getShipDetails";
 
 const ShipDetails = () => {
@@ -18,11 +19,7 @@ const ShipDetails = () => {
   
   return (
     <Box component={Typography} mt={2} mb={4} align="center" variant="h2">
-      Ship Details
-     <p>{ship.image}</p>
-     <p>{ship.name}</p>
-     <p>{ship.model}</p>
-     <p>{ship.id}</p>
+      <Card image={ship.image} alt={ship.name} label={ship.name} description={ship.model} href={`ship/${ship.id}`} loading={loading} />
     </Box>
   )
 };

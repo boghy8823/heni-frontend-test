@@ -1,12 +1,12 @@
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useRouter } from 'next/router'
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useQuery } from '@apollo/client';
 import { GET_SHIPS } from "../../../api/ship/queries/getShips";
 import { Ship } from "../../../api/ship/types";
 import { Card } from "../../../components/Card";
+import { Grid } from "@mui/material";
 
 export const getStaticProps = () => {
   return {
@@ -19,9 +19,9 @@ export const getStaticProps = () => {
 };
 
 export const HomePage = () => {
-  const { loading, error, data: { launchesPast } = {}, fetchMore } = useQuery(GET_SHIPS, { variables: { limit: 3, offset: 0 } });
+  const { loading, error, data: { launchesPast } = {}, fetchMore } = useQuery(GET_SHIPS, { variables: { limit: 6, offset: 0 } });
   const [hasMore, setHasMore] = useState(true);
-  const loadMOreShips = () => {
+  const loadMoreShips = () => {
     if (launchesPast.length > 150) {
       setHasMore(false);
     }
@@ -44,22 +44,29 @@ export const HomePage = () => {
 
 
   return (
-    <Box component={Typography} mt={2} mb={4} align="center" variant="h2">
+    <Box sx={{ flexGrow: 1 }}>
       <>
         <InfiniteScroll
           dataLength={launchesPast.length}
-          next={() => loadMOreShips()}
+          next={() => loadMoreShips()}
           hasMore={hasMore}
           loader={loading}
           endMessage={<h4>Nothing more to show</h4>}
         >
           {launchesPast && (
-            formatData().map((ship: Ship, index: any) => (
-              ship && (
-                <Card key={index} image={ship.image} alt={ship.name} label={ship.name} description={ship.model} href={`ship/${ship.id}`} loading={loading} />
-              )
-            ))
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              {launchesPast && (
+                formatData().map((ship: Ship, index: any) => (
+                  ship && (
+                    <Grid item xs={4} md={4} key={index}>
+                      <Card key={index} image={ship.image} alt={ship.name} label={ship.name} description={ship.model} href={`ship/${ship.id}`} loading={loading} />
+                    </Grid>
+                  )
+                ))
+              )}
+            </Grid>
           )}
+
         </InfiniteScroll>
         <style jsx>
           {`
