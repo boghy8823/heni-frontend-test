@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { Container } from "@mui/material";
 import type { AppProps } from "next/app";
 import { Header } from "../page-content/header";
 
@@ -12,7 +13,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               // Don't cache separate results based on
               // any of this field's arguments.
               keyArgs: false,
-    
+
               // Concatenate the incoming list items with
               // the existing list items.
               merge(existing = [], incoming) {
@@ -31,7 +32,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               // Don't cache separate results based on
               // any of this field's arguments.
               keyArgs: false,
-    
+
               // Concatenate the incoming list items with
               // the existing list items.
               merge(existing = [], incoming) {
@@ -52,13 +53,13 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={client}>
       <header>
         <Header pageProps={pageProps} />
-        <p>TEST</p>
+        {/* TODO: Add a custom header component */}
       </header>
       <main>
         <Component {...pageProps} />
       </main>
       <footer>
-        <p>TEST</p>
+        {/* TODO: implement footer component */}
       </footer>
     </ApolloProvider>
   );

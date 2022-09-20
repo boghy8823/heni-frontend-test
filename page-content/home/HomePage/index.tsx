@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { GET_SHIPS } from "../../../api/ship/queries/getShips";
 import { Ship } from "../../../api/ship/types";
 import { Card } from "../../../components/Card";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Loader } from "../../../components/Loader";
 
 export const getStaticProps = () => {
@@ -32,15 +32,17 @@ export const HomePage = () => {
     }, 100)
   }
 
+  // Grabbing all the ships from each launch
+  // so we can have more items in the dataset
   const formatData = () => {
-    return launchesPast && launchesPast.map((launch: any) => {
+    return launchesPast.map((launch: any) => {
       return launch.ships;
     })
       .flat();
   }
 
   if (loading) return <Loader open={loading} />;
-  if (error) return <p>Error :(</p>;
+  if (error) return  <Typography variant="body2">{error.message}</Typography>;
 
   return (
     <Container maxWidth="md">
