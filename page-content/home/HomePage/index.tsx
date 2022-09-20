@@ -1,5 +1,6 @@
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useRouter } from 'next/router'
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useQuery } from '@apollo/client';
@@ -18,21 +19,20 @@ export const getStaticProps = () => {
 };
 
 export const HomePage = () => {
-  const { loading, error, data: {launchesPast} = {}, fetchMore } = useQuery(GET_SHIPS, { variables: { limit: 3, offset: 0 } });
+  const { loading, error, data: { launchesPast } = {}, fetchMore } = useQuery(GET_SHIPS, { variables: { limit: 3, offset: 0 } });
   const [hasMore, setHasMore] = useState(true);
-
   const loadMOreShips = () => {
-    if (launchesPast.length > 150){
+    if (launchesPast.length > 150) {
       setHasMore(false);
     }
 
     // debounce just because API is limited
     setTimeout(() => {
-      fetchMore({ variables: { limit: 3, offset: launchesPast.length}})
-    }, 1000)
+      fetchMore({ variables: { limit: 3, offset: launchesPast.length } })
+    }, 100)
   }
 
-  const formatData = (data: any) => {
+  const formatData = () => {
     return launchesPast && launchesPast.map((launch: any) => {
       return launch.ships;
     })
@@ -48,15 +48,15 @@ export const HomePage = () => {
       <>
         <InfiniteScroll
           dataLength={launchesPast.length}
-          next={() =>loadMOreShips()}
+          next={() => loadMOreShips()}
           hasMore={hasMore}
           loader={loading}
           endMessage={<h4>Nothing more to show</h4>}
         >
           {launchesPast && (
-            formatData(launchesPast).map((ship: Ship, index:any) => (
+            formatData().map((ship: Ship, index: any) => (
               ship && (
-                <Card key={index} image={ship.image} alt={ship.name} label={ship.name} description={ship.model} href={`ship/${ship.id}`} loading={loading} onClick={() => shipDetailsPage} />
+                <Card key={index} image={ship.image} alt={ship.name} label={ship.name} description={ship.model} href={`ship/${ship.id}`} loading={loading} />
               )
             ))
           )}
