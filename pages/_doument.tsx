@@ -1,7 +1,7 @@
 import * as React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
-import theme from "../src/theme";
+import { theme } from "../theme";
 import createEmotionCache from "../utils/createEmotionCache";
 
 export default class MyDocument extends Document {
@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
           <meta name="emotion-insertion-point" content="" />
-          {this.props.emotionStyleTags}
+          {(this.props as any).emotionStyleTags}
         </Head>
         <body>
           <Main />
@@ -62,7 +62,7 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) =>
+      enhanceApp: (App: any) =>
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />;
         },

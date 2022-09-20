@@ -6,12 +6,14 @@ export type GetShipsResult = {
 };
 
 export const GET_SHIPS = gql`
-  query getShips($limit: Int) {
-    ships(limit: $limit) {
-      id
-      image
-      name
-      model
+  query getShips($limit: Int, $offset: Int) {
+    launchesPast(limit: $limit, offset: $offset) {
+      ships { 
+        id
+        image
+        name
+        model
+      }
     }
   }
 `;
