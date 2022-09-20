@@ -52,10 +52,14 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={client}>
       <header>
         <Header pageProps={pageProps} />
+        <p>TEST</p>
       </header>
       <main>
         <Component {...pageProps} />
       </main>
+      <footer>
+        <p>TEST</p>
+      </footer>
     </ApolloProvider>
   );
 };

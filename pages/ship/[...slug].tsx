@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/client";
-import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 import { useRouter } from 'next/router'
-import { Card } from "../../components/Card";
 import { GET_SHIP_DETAILS } from "../../api/ship/queries/getShipDetails";
+import { CardMedia } from "@mui/material";
 
 const ShipDetails = () => {
   const router = useRouter();
@@ -14,13 +15,22 @@ const ShipDetails = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-
-  console.log("SHIP DATA", data);
   
   return (
-    <Box component={Typography} mt={2} mb={4} align="center" variant="h2">
-      <Card image={ship.image} alt={ship.name} label={ship.name} description={ship.model} href={`ship/${ship.id}`} loading={loading} />
-    </Box>
+    <Container maxWidth="md">
+      <CardMedia component="img" image={ship.image} alt={ship.name} />
+      <Typography variant="h2" component="h2">
+          {ship.name}
+      </Typography>
+      <Typography variant="h5" component="h5">
+          {ship.model}
+      </Typography>
+      <Typography variant="body1">
+          ID: {ship.model}
+      </Typography>
+      <Paper>
+      </Paper>
+    </Container>
   )
 };
 

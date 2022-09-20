@@ -1,7 +1,6 @@
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import { useQuery } from '@apollo/client';
 import { GET_SHIPS } from "../../../api/ship/queries/getShips";
 import { Ship } from "../../../api/ship/types";
@@ -42,9 +41,8 @@ export const HomePage = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Container maxWidth="md">
       <>
         <InfiniteScroll
           dataLength={launchesPast.length}
@@ -68,17 +66,7 @@ export const HomePage = () => {
           )}
 
         </InfiniteScroll>
-        <style jsx>
-          {`
-          .back {
-            padding: 10px;
-            background-color: dodgerblue;
-            color: white;
-            margin: 10px;
-          }
-        `}
-        </style>
       </>
-    </Box>
+    </Container>
   );
 };
