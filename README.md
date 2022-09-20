@@ -26,12 +26,28 @@ The purpose of this test is to show a list of ships using SpaceX GraphQL API : h
 - Set up basic Open Graph tags for both the home page and the details page.
 - BONUS : There is a hook in `hooks/useLocalStorage/index.ts` which should not be useful for the previous questions. Please write unit tests for this hook.
 
-## What would you improve in this test ?
-
-### Any technologies you would add to improve the project/code quality ?
-
 ....
 
 ### About your own implementation ?
+Tasks done for the test completion:
+ * Completed the homepage component with infinite scroll
 
+     I have added the offset field to the gql query so I can fetch more data as the user scrolls through the page. Implemented infinite scroll using InfiniteScroll component. In order to make it work, I had to add a typePolicy for ApolloClient to merge the results.
+     
+     While working on this part, I noticed that there is not enough data coming in from the ships query so I switched to the launch history query that also has info about the ships used in that launch. With a sample data formatting function I now have hundreds of ships to show off. 
+
+     The downside of this is that we have duplicates. Since this is a test to check the implementation rather than the content, I considered it a good trade-off.
+    
+
+ * Created a simple details page for every boat
+    
+    For this implementation I've added a new gql query which accepts the boat ID as a parameter that is taken from the URL and then fetches the data to populate the page. 
+    
+    In order to render the page, I added a catch-all dynamic page called [..slug] which will match any URL of type `details/ID`
+    
+ * Added unit tests and also completed the Bonus point by writing unit tests for the custom hook 
+
+     In order to test the custom hook I created a simple component that uses the locaLStorage hook. Then, I've added tests as usual that check the page's state given the values from the localstorage. 
+
+ 
 ....
