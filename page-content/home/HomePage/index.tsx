@@ -42,7 +42,7 @@ export const HomePage = () => {
   }
 
   if (loading) return <Loader open={loading} />;
-  if (error) return  <Typography variant="body2">{error.message}</Typography>;
+  if (error) return <Typography variant="body2">{error.message}</Typography>;
 
   return (
     <Container maxWidth="md">
@@ -56,15 +56,13 @@ export const HomePage = () => {
         >
           {launchesPast && (
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              {launchesPast && (
-                formatData().map((ship: Ship, index: any) => (
-                  ship && (
-                    <Grid item xs={4} md={4} key={index}>
-                      <Card key={index} image={ship.image} alt={ship.name} label={ship.name} description={ship.model} href={`ship/${ship.id}`} loading={loading} />
-                    </Grid>
-                  )
-                ))
-              )}
+              {formatData().map((ship: Ship, index: number) => (
+                ship && (
+                  <Grid item xs={4} md={4} key={index}>
+                    <Card key={index} image={ship.image} alt={ship.name} label={ship.name} description={ship.model} href={`ship/${ship.id}`} loading={loading} />
+                  </Grid>
+                )
+              ))}
             </Grid>
           )}
 
